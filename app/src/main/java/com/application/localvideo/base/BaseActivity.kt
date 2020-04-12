@@ -1,4 +1,4 @@
-package com.application.localvideo.activity
+package com.application.localvideo.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

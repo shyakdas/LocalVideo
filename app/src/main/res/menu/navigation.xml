@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/local_videos"
+        android:icon="@drawable/ic_videocam_white"
+        android:title="@string/local_videos" />
+
+    <item
+        android:id="@+id/bookmark"
+        android:icon="@drawable/ic_bookmark_white"
+        android:title="@string/bookmark" />
+</menu>

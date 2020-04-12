@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LocalVideo</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="local_videos">Local Videos</string>
 </resources>

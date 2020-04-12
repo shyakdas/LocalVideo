@@ -2,6 +2,7 @@
 <resources>
 
     <!-- Text Size -->
+    <dimen name="sp_22">22sp</dimen>
     <dimen name="sp_30">30sp</dimen>
 
     <!-- Margin -->

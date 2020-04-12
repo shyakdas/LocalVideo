@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.application.localvideo.R
-import com.application.localvideo.activity.BaseActivity
+import com.application.localvideo.base.BaseActivity
 import com.application.localvideo.activity.home.HomeActivity
-import com.application.localvideo.videmodel.splash.SplashViewModel
+import com.application.localvideo.viewmodel.splash.SplashViewModel
 
 
 class SplashActivity : BaseActivity() {

@@ -1,8 +1,8 @@
-package com.application.localvideo.videmodel.splash
+package com.application.localvideo.viewmodel.splash
 
 import android.app.Application
 import androidx.lifecycle.liveData
-import com.application.localvideo.videmodel.BaseViewModel
+import com.application.localvideo.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 

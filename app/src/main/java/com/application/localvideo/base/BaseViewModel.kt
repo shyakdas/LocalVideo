@@ -1,4 +1,4 @@
-package com.application.localvideo.videmodel
+package com.application.localvideo.base
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
