@@ -2,4 +2,8 @@
     <string name="app_name">LocalVideo</string>
     <string name="bookmark">Bookmark</string>
     <string name="local_videos">Local Videos</string>
+    <string name="no_bookmark_videos">No Bookmark videos</string>
+    <string name="please_select_videos_as_bookmark">Please select videos as bookmark</string>
+    <string name="please_download_some_video_to_watch">Please download some video to watch</string>
+    <string name="no_video_present">No video present</string>
 </resources>
