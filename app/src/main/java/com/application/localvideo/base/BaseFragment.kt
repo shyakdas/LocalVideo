@@ -24,7 +24,7 @@ open abstract class BaseFragment : Fragment() {
         initView(view)
     }
 
-    fun initView(view: View) {
+    open fun initView(view: View) {
         // Let child class handle this funtion
     }
 
