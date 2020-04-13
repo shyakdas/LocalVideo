@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="model"
+            type="com.application.localvideo.model.VideoModel" />
     </data>
 
     <androidx.cardview.widget.CardView

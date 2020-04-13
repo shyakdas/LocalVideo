@@ -13,10 +13,16 @@ open abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (getLayout() != 0) {
-            return inflater.inflate(getLayout(), container, false)
-        }
-        return super.onCreateView(inflater, container, savedInstanceState)
+        initViewModel()
+        return bindView(inflater, container, savedInstanceState)
+    }
+
+    open fun bindView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return layoutInflater.inflate(getLayout(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,6 +32,10 @@ open abstract class BaseFragment : Fragment() {
 
     open fun initView(view: View) {
         // Let child class handle this funtion
+    }
+
+    open fun initViewModel() {
+
     }
 
     abstract fun getLayout(): Int
