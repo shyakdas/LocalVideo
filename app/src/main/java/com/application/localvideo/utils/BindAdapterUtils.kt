@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.ExoPlaybackException
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.ExtractorMediaSource
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -34,13 +34,9 @@ fun loadImage(imageView: ImageView, imageURL: String) {
 
 @BindingAdapter("video_url", "on_state_change")
 fun PlayerView.loadVideo(url: String, callback: PlayerStateCallback) {
-    val player = ExoPlayerFactory.newSimpleInstance(
-        context, DefaultRenderersFactory(context), DefaultTrackSelector(),
-        DefaultLoadControl()
-    )
-
-    player.playWhenReady = true
-    player.repeatMode = Player.REPEAT_MODE_ALL
+    val player = CustomExoPlayer.getInstance(context).initExoPlayer()
+    player?.playWhenReady = true
+    player?.repeatMode = Player.REPEAT_MODE_ALL
     // When changing track, retain the latest frame instead of showing a black screen
     setKeepContentOnPlayerReset(true)
     // We'll show the controller
@@ -51,7 +47,7 @@ fun PlayerView.loadVideo(url: String, callback: PlayerStateCallback) {
     )
         .createMediaSource(Uri.parse(url))
 
-    player.prepare(mediaSource)
+    player?.prepare(mediaSource)
 
     this.player = player
 
@@ -64,12 +60,12 @@ fun PlayerView.loadVideo(url: String, callback: PlayerStateCallback) {
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
             super.onPlayerStateChanged(playWhenReady, playbackState)
 
-            if (playbackState == Player.STATE_BUFFERING) callback.onVideoBuffering(player) // Buffering.. set progress bar visible here
+            if (playbackState == Player.STATE_BUFFERING) callback.onVideoBuffering(player!!) // Buffering.. set progress bar visible here
             if (playbackState == Player.STATE_READY) {
                 // [PlayerView] has fetched the video duration so this is the block to hide the buffering progress bar
-                callback.onVideoDurationRetrieved(this@loadVideo.player.duration, player)
+                callback.onVideoDurationRetrieved(this@loadVideo.player.duration, player!!)
             }
-            if (playbackState == Player.STATE_READY && player.playWhenReady) {
+            if (playbackState == Player.STATE_READY && player!!.playWhenReady) {
                 // [PlayerView] has started playing/resumed the video
                 callback.onStartedPlaying(player)
             }

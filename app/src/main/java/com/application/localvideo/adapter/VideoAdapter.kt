@@ -1,5 +1,6 @@
 package com.application.localvideo.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -8,6 +9,7 @@ import com.application.localvideo.R
 import com.application.localvideo.databinding.ItemVideoBinding
 import com.application.localvideo.listener.VideoClickListener
 import com.application.localvideo.model.VideoModel
+import com.application.localvideo.utils.CustomExoPlayer
 import com.application.localvideo.utils.PlayerStateCallback
 import com.application.localvideo.videoholder.VideoItemViewHolder
 import com.google.android.exoplayer2.Player
@@ -16,8 +18,10 @@ class VideoAdapter(var videoList: ArrayList<VideoModel>, var listener: VideoClic
     RecyclerView.Adapter<VideoItemViewHolder>(), PlayerStateCallback {
     private var url: String? = null
     private lateinit var callback: PlayerStateCallback
+    private lateinit var mContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoItemViewHolder {
+        mContext = parent.context
         val listItemTextImageBinding: ItemVideoBinding = DataBindingUtil
             .inflate(LayoutInflater.from(parent.context), R.layout.item_video, parent, false)
 
@@ -52,5 +56,6 @@ class VideoAdapter(var videoList: ArrayList<VideoModel>, var listener: VideoClic
     }
 
     override fun onFinishedPlaying(player: Player) {
+        player.release()
     }
 }
