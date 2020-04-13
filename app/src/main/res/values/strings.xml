@@ -6,4 +6,5 @@
     <string name="please_select_videos_as_bookmark">Please select videos as bookmark</string>
     <string name="please_download_some_video_to_watch">Please download some video to watch</string>
     <string name="no_video_present">No video present</string>
+    <string name="video_saved">Video Bookmarked</string>
 </resources>
