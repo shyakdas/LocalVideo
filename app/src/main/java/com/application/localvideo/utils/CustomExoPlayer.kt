@@ -9,7 +9,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 
 class CustomExoPlayer(private var context: Context) {
 
-    private var player: SimpleExoPlayer? = null
+    var player: SimpleExoPlayer? = null
 
     companion object {
         @Volatile

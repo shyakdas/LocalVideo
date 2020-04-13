@@ -9,6 +9,7 @@ import com.application.localvideo.base.BaseActivity
 import com.application.localvideo.databinding.ActivityHomeBinding
 import com.application.localvideo.fragments.bookmark.BookMarkFragment
 import com.application.localvideo.fragments.localvideo.LocalVideoFragment
+import com.application.localvideo.utils.CustomExoPlayer
 import com.application.localvideo.viewmodel.home.HomeViewModel
 
 
@@ -61,8 +62,23 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun navigateToBookMarkVideo() {
+        releasePlayer()
         val fm = supportFragmentManager
         val fragment = BookMarkFragment()
         fm.beginTransaction().add(R.id.frame_container, fragment).commitAllowingStateLoss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        releasePlayer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        releasePlayer()
+    }
+
+    private fun releasePlayer() {
+        CustomExoPlayer.getInstance(this).player?.release()
     }
 }
