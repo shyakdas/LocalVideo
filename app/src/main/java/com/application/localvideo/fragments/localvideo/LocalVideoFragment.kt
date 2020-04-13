@@ -16,7 +16,6 @@ import com.application.localvideo.base.BaseFragment
 import com.application.localvideo.databinding.FragmentLocalVideosBinding
 import com.application.localvideo.listener.VideoClickListener
 import com.application.localvideo.model.VideoModel
-import com.application.localvideo.utils.CustomExoPlayer
 import com.application.localvideo.utils.StartSnapHelper
 import com.application.localvideo.viewmodel.video.VideoViewModel
 import kotlinx.android.synthetic.main.fragment_local_videos.*

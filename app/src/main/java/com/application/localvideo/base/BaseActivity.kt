@@ -104,16 +104,11 @@ abstract class BaseActivity : AppCompatActivity() {
     ) {
         if (requestCode === 1) {
             if (grantResults.size > 0 && grantResults[0] === PackageManager.PERMISSION_GRANTED) {
-                //load data here
-                //for first time data will be loaded here
-                //then it will be loaded in splash screen
-                //because if we could not have permission then we could not load data in splash screen window
                 storagePaths = StorageUtils.getStorageDirectories(this)
                 for (path in storagePaths) {
                     storage = File(path)
                     MethodLoadDirectory.load_Directory_Files(storage)
                 }
-                //  recyclerViewAdapter.notifyDataSetChanged()
             }
         }
     }

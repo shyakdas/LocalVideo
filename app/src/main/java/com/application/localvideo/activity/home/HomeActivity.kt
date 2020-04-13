@@ -11,12 +11,14 @@ import com.application.localvideo.fragments.bookmark.BookMarkFragment
 import com.application.localvideo.fragments.localvideo.LocalVideoFragment
 import com.application.localvideo.utils.CustomExoPlayer
 import com.application.localvideo.viewmodel.home.HomeViewModel
+import com.application.localvideo.viewmodel.video.VideoViewModel
 
 
 class HomeActivity : BaseActivity() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var homeBinding: ActivityHomeBinding
+    private lateinit var videoViewModel: VideoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,8 @@ class HomeActivity : BaseActivity() {
     override fun initViewModel() {
         homeViewModel =
             ViewModelProvider(this, defaultViewModelProviderFactory).get(HomeViewModel::class.java)
+        videoViewModel =
+            ViewModelProvider(this, defaultViewModelProviderFactory).get(VideoViewModel::class.java)
     }
 
     private fun initLocalVideo() {
@@ -80,5 +84,14 @@ class HomeActivity : BaseActivity() {
 
     private fun releasePlayer() {
         CustomExoPlayer.getInstance(this).player?.release()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        videoViewModel.getListOfVideos()
     }
 }

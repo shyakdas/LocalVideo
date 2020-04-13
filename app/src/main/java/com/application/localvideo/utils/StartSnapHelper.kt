@@ -12,8 +12,6 @@ class StartSnapHelper : LinearSnapHelper() {
     private var mVerticalHelper: OrientationHelper? = null
     private var mHorizontalHelper: OrientationHelper? = null
 
-    fun StartSnapHelper() {}
-
     @Throws(IllegalStateException::class)
     override fun attachToRecyclerView(@Nullable recyclerView: RecyclerView?) {
         super.attachToRecyclerView(recyclerView)
