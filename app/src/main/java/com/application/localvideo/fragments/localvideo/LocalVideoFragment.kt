@@ -1,6 +1,5 @@
 package com.application.localvideo.fragments.localvideo
 
-import android.util.Log
 import android.view.View
 import com.application.localvideo.R
 import com.application.localvideo.base.BaseFragment
@@ -14,6 +13,5 @@ class LocalVideoFragment : BaseFragment() {
 
     override fun initView(view: View) {
         VideoConstant.allMediaList
-        Log.e("TAG", "Videolist" + VideoConstant.allMediaList.size)
     }
 }
