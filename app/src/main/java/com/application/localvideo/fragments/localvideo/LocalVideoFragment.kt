@@ -65,8 +65,12 @@ open class LocalVideoFragment : BaseFragment(), VideoClickListener {
     }
 
     override fun initViewModel() {
-        videoViewModel =
-            ViewModelProvider(this, defaultViewModelProviderFactory).get(VideoViewModel::class.java)
+        activity?.let {
+            videoViewModel = ViewModelProvider(
+                it,
+                defaultViewModelProviderFactory
+            ).get(VideoViewModel::class.java)
+        }
     }
 
     open fun initVideoList() {

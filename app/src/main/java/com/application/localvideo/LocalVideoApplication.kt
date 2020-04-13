@@ -2,6 +2,7 @@ package com.application.localvideo
 
 import android.app.Application
 import android.content.Context
+import com.application.localvideo.database.LocalVideoDatabase
 
 class LocalVideoApplication : Application() {
 
@@ -19,6 +20,6 @@ class LocalVideoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        // Todo
+        LocalVideoDatabase.getDatabase(applicationContext)
     }
 }

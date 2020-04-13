@@ -3,8 +3,9 @@ package com.application.localvideo.repository
 import androidx.lifecycle.LiveData
 import com.application.localvideo.database.BookMarkDao
 import com.application.localvideo.model.BookMarkModel
+import com.application.localvideo.model.VideoModel
 
-class BookMarkRepository(dao: BookMarkDao?) {
+class BookMarkRepository(private val dao: BookMarkDao?) {
 
     companion object {
         @Volatile
@@ -24,4 +25,8 @@ class BookMarkRepository(dao: BookMarkDao?) {
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     val allBookMarkVideos: LiveData<List<BookMarkModel>> = dao!!.getBookMarkVideosList()
+
+    suspend fun insert(videoModel: VideoModel) {
+        dao?.insertBookMark(BookMarkModel(videoModel.videoUri!!))
+    }
 }

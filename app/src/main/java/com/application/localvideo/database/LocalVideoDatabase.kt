@@ -6,28 +6,32 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.application.localvideo.model.BookMarkModel
 
-@Database(
-    entities = [(BookMarkModel::class)],
-    version = 1, exportSchema = false
-)
+// Annotates class to be a Room Database with a table (entity) of the Word class
+@Database(entities = arrayOf(BookMarkModel::class), version = 1, exportSchema = false)
 abstract class LocalVideoDatabase : RoomDatabase() {
 
     abstract fun bookMarkDao(): BookMarkDao
 
     companion object {
-        var INSTANCE: LocalVideoDatabase? = null
+        // Singleton prevents multiple instances of database opening at the
+        // same time.
+        @Volatile
+        private var INSTANCE: LocalVideoDatabase? = null
 
-        fun getAppDatabase(context: Context): LocalVideoDatabase? {
-            if (INSTANCE == null) {
-                synchronized(LocalVideoDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        LocalVideoDatabase::class.java,
-                        "local_video_database"
-                    ).build()
-                }
+        fun getDatabase(context: Context): LocalVideoDatabase {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
             }
-            return INSTANCE
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    LocalVideoDatabase::class.java,
+                    "local_database"
+                ).build()
+                INSTANCE = instance
+                return instance
+            }
         }
     }
 }

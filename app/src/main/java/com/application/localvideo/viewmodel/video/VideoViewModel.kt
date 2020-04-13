@@ -5,9 +5,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.application.localvideo.base.BaseViewModel
-import com.application.localvideo.database.BookMarkDao
 import com.application.localvideo.database.LocalVideoDatabase
-import com.application.localvideo.model.BookMarkModel
 import com.application.localvideo.model.VideoModel
 import com.application.localvideo.repository.BookMarkRepository
 import com.application.localvideo.utils.VideoConstant
@@ -21,7 +19,8 @@ class VideoViewModel(application: Application) : BaseViewModel(application) {
     var mutableBookMarkVideoList = MutableLiveData<List<VideoModel>>()
     var videoEmptyStateVisibility = ObservableField(false)
     var bookMarkEmptyStateVisibility = ObservableField(false)
-    var dao: BookMarkDao? = LocalVideoDatabase.INSTANCE?.bookMarkDao()
+    val dao = LocalVideoDatabase.getDatabase(application).bookMarkDao()
+    private var repository: BookMarkRepository? = BookMarkRepository.getInstance(dao)
 
     fun getListOfVideos() {
         val mList = VideoConstant.allMediaList
@@ -42,26 +41,21 @@ class VideoViewModel(application: Application) : BaseViewModel(application) {
 
     fun saveBookMark(videoModel: VideoModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            dao?.insertBookMark(BookMarkModel(videoModel.videoUri))
+            repository?.insert(videoModel)
         }
     }
 
     fun getBookMarkVideos() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val videoList = ArrayList<VideoModel>()
-            BookMarkRepository.INSTANCE?.allBookMarkVideos?.observeForever {
-                it.forEach {
-                    videoList.add(VideoModel(File(it.bookMarkVideos!!)))
-                }
-            }
-            withContext(Dispatchers.Main) {
-                if (videoList.isNullOrEmpty())
-                    bookMarkEmptyStateVisibility.set(true)
-                else
-                    bookMarkEmptyStateVisibility.set(false)
-                mutableBookMarkVideoList.value = videoList
+        val videoList = ArrayList<VideoModel>()
+        BookMarkRepository.getInstance(dao).allBookMarkVideos.observeForever {
+            it.forEach {
+                videoList.add(VideoModel(File(it.bookMarkVideos)))
             }
         }
+        if (videoList.isNullOrEmpty())
+            bookMarkEmptyStateVisibility.set(true)
+        else
+            bookMarkEmptyStateVisibility.set(false)
+        mutableBookMarkVideoList.value = videoList
     }
-
 }
