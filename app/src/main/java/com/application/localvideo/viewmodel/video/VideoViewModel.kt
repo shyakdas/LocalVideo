@@ -42,6 +42,9 @@ class VideoViewModel(application: Application) : BaseViewModel(application) {
     fun saveBookMark(videoModel: VideoModel) {
         viewModelScope.launch(Dispatchers.IO) {
             repository?.insert(videoModel)
+            withContext(Dispatchers.Main){
+                getBookMarkVideos()
+            }
         }
     }
 
