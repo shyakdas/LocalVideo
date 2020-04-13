@@ -20,10 +20,10 @@ import com.application.localvideo.viewmodel.video.VideoViewModel
 import kotlinx.android.synthetic.main.fragment_local_videos.*
 
 
-class LocalVideoFragment : BaseFragment(), VideoClickListener {
-    private lateinit var videoVideoModel: VideoViewModel
+open class LocalVideoFragment : BaseFragment(), VideoClickListener {
+    protected lateinit var videoViewModel: VideoViewModel
     private var videoList = ArrayList<VideoModel>()
-    private lateinit var videoAdapter: VideoAdapter
+    protected lateinit var videoAdapter: VideoAdapter
     private lateinit var dataBinding: FragmentLocalVideosBinding
 
     override fun bindView(
@@ -33,7 +33,7 @@ class LocalVideoFragment : BaseFragment(), VideoClickListener {
     ): View? {
         initViewModel()
         dataBinding = DataBindingUtil.inflate(inflater, getLayout(), container, false)
-        dataBinding.videoViewModel = videoVideoModel
+        dataBinding.videoViewModel = videoViewModel
         return dataBinding.root
     }
 
@@ -50,23 +50,27 @@ class LocalVideoFragment : BaseFragment(), VideoClickListener {
     private fun initRecyclerView() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         val snapHelpers = StartSnapHelper()
-        recycler_view.layoutManager = layoutManager
-        videoAdapter = VideoAdapter(videoList = videoList, listener = this)
-        recycler_view.adapter = videoAdapter
         snapHelpers.attachToRecyclerView(recycler_view)
+        recycler_view.layoutManager = layoutManager
+        initAdapterData()
     }
 
-    private fun initData() {
-        videoVideoModel.getListOfVideos()
+    open fun initAdapterData() {
+        videoAdapter = VideoAdapter(videoList = videoList, listener = this)
+        recycler_view.adapter = videoAdapter
+    }
+
+    open fun initData() {
+        videoViewModel.getListOfVideos()
     }
 
     override fun initViewModel() {
-        videoVideoModel =
+        videoViewModel =
             ViewModelProvider(this, defaultViewModelProviderFactory).get(VideoViewModel::class.java)
     }
 
-    private fun initVideoList() {
-        videoVideoModel.mutableVideoList.observe(this, Observer {
+    open fun initVideoList() {
+        videoViewModel.mutableVideoList.observe(this, Observer {
             videoList.clear()
             videoList.addAll(it)
             videoAdapter.notifyDataSetChanged()
@@ -74,6 +78,6 @@ class LocalVideoFragment : BaseFragment(), VideoClickListener {
     }
 
     override fun onItemClick(videoModel: VideoModel) {
-
+        videoViewModel.saveBookMark(videoModel)
     }
 }

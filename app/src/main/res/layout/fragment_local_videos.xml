@@ -43,7 +43,7 @@
             layout="@layout/empty_local_videos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:goneVisible="@{videoViewModel.emptyStateVisibility}"
+            app:goneVisible="@{videoViewModel.videoEmptyStateVisibility}"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
