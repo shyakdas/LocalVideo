@@ -15,7 +15,6 @@ class SplashViewModel(application: Application) : BaseViewModel(application) {
     private lateinit var storagePaths: Array<String>
 
     val splashData = liveData(Dispatchers.IO) {
-        delay(500)
         loadStorage()
         emit(true)
     }

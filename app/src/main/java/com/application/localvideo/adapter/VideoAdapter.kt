@@ -11,6 +11,7 @@ import com.application.localvideo.videoholder.VideoItemViewHolder
 
 class VideoAdapter(var videoList: ArrayList<VideoModel>) :
     RecyclerView.Adapter<VideoItemViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoItemViewHolder {
         val listItemTextImageBinding: ItemVideoBinding = DataBindingUtil
             .inflate(LayoutInflater.from(parent.context), R.layout.item_video, parent, false)

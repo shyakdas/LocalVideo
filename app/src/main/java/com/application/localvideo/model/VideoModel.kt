@@ -1,5 +1,12 @@
 package com.application.localvideo.model
 
-data class VideoModel(
-    var videoPath: String
-)
+import java.io.File
+
+class VideoModel(
+    videoPath: File
+) {
+
+    var videoName: String? = videoPath.name
+
+    var videoUri: String? = videoPath.absolutePath
+}

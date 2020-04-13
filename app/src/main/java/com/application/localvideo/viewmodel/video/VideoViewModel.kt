@@ -20,7 +20,7 @@ class VideoViewModel(application: Application) : BaseViewModel(application) {
         val videoList = ArrayList<VideoModel>()
         viewModelScope.launch(Dispatchers.IO) {
             mList.forEach {
-                videoList.add(VideoModel(it.absolutePath))
+                videoList.add(VideoModel(it))
             }
             withContext(Dispatchers.Main) {
                 if (videoList.isNullOrEmpty())
