@@ -6,17 +6,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.application.localvideo.R
 import com.application.localvideo.databinding.ItemVideoBinding
+import com.application.localvideo.listener.VideoClickListener
 import com.application.localvideo.model.VideoModel
 import com.application.localvideo.videoholder.VideoItemViewHolder
 
-class VideoAdapter(var videoList: ArrayList<VideoModel>) :
+class VideoAdapter(var videoList: ArrayList<VideoModel>, var listener: VideoClickListener) :
     RecyclerView.Adapter<VideoItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoItemViewHolder {
         val listItemTextImageBinding: ItemVideoBinding = DataBindingUtil
             .inflate(LayoutInflater.from(parent.context), R.layout.item_video, parent, false)
 
-        return VideoItemViewHolder(listItemTextImageBinding.root, listItemTextImageBinding)
+        val holder =
+            VideoItemViewHolder(listItemTextImageBinding.root, listItemTextImageBinding, listener)
+        holder.itemRowBinding.itemClickListener = listener
+        return holder
     }
 
     override fun getItemCount(): Int {

@@ -13,11 +13,13 @@ import com.application.localvideo.R
 import com.application.localvideo.adapter.VideoAdapter
 import com.application.localvideo.base.BaseFragment
 import com.application.localvideo.databinding.FragmentLocalVideosBinding
+import com.application.localvideo.listener.VideoClickListener
 import com.application.localvideo.model.VideoModel
 import com.application.localvideo.viewmodel.video.VideoViewModel
 import kotlinx.android.synthetic.main.fragment_local_videos.*
 
-class LocalVideoFragment : BaseFragment() {
+
+class LocalVideoFragment : BaseFragment(), VideoClickListener {
     private lateinit var videoVideoModel: VideoViewModel
     private var videoList = ArrayList<VideoModel>()
     private lateinit var videoAdapter: VideoAdapter
@@ -47,7 +49,7 @@ class LocalVideoFragment : BaseFragment() {
     private fun initRecyclerView() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = layoutManager
-        videoAdapter = VideoAdapter(videoList = videoList)
+        videoAdapter = VideoAdapter(videoList = videoList, listener = this)
         recycler_view.adapter = videoAdapter
     }
 
@@ -66,5 +68,9 @@ class LocalVideoFragment : BaseFragment() {
             videoList.addAll(it)
             videoAdapter.notifyDataSetChanged()
         })
+    }
+
+    override fun onItemClick(videoModel: VideoModel) {
+
     }
 }

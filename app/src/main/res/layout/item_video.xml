@@ -7,6 +7,10 @@
         <variable
             name="model"
             type="com.application.localvideo.model.VideoModel" />
+
+        <variable
+            name="itemClickListener"
+            type="com.application.localvideo.listener.VideoClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -24,10 +28,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_200"
                 android:contentDescription="@string/local_videos"
+                android:onClick="@{() -> itemClickListener.onItemClick(model)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:loadImage="@{model.videoUri}" />
+
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_200"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="0dp"
