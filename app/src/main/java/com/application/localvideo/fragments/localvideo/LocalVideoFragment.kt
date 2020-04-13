@@ -15,6 +15,7 @@ import com.application.localvideo.base.BaseFragment
 import com.application.localvideo.databinding.FragmentLocalVideosBinding
 import com.application.localvideo.listener.VideoClickListener
 import com.application.localvideo.model.VideoModel
+import com.application.localvideo.utils.StartSnapHelper
 import com.application.localvideo.viewmodel.video.VideoViewModel
 import kotlinx.android.synthetic.main.fragment_local_videos.*
 
@@ -48,9 +49,11 @@ class LocalVideoFragment : BaseFragment(), VideoClickListener {
 
     private fun initRecyclerView() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val snapHelpers = StartSnapHelper()
         recycler_view.layoutManager = layoutManager
         videoAdapter = VideoAdapter(videoList = videoList, listener = this)
         recycler_view.adapter = videoAdapter
+        snapHelpers.attachToRecyclerView(recycler_view)
     }
 
     private fun initData() {
