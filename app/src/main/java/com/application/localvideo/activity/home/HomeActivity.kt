@@ -11,6 +11,7 @@ import com.application.localvideo.fragments.bookmark.BookMarkFragment
 import com.application.localvideo.fragments.localvideo.LocalVideoFragment
 import com.application.localvideo.viewmodel.home.HomeViewModel
 
+
 class HomeActivity : BaseActivity() {
 
     private lateinit var homeViewModel: HomeViewModel
